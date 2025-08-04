@@ -37,5 +37,5 @@ Ele compara textos enviados contra uma **base local** e contra **conteúdos do W
 
 ### **1. Clonar o repositório**
 ```bash
-git clone <https://github.com/KaiqueMS2019/api-de-deteccao-de-plagio.git>
+git clone https://github.com/KaiqueMS2019/api-de-deteccao-de-plagio.git
 cd plagio-api
