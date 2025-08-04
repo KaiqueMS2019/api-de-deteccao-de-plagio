@@ -1,6 +1,6 @@
 # API de Detecção de Plágio 
 
-Este projeto é uma API em Python para detecção de plágio.  
+Este projeto é uma API em Python para detecção de plágio com NLP.  
 Ele compara textos enviados contra uma **base local** e contra **conteúdos do Wikipedia** usando **embeddings semânticos**.
 
 ---
@@ -37,5 +37,5 @@ Ele compara textos enviados contra uma **base local** e contra **conteúdos do W
 
 ### **1. Clonar o repositório**
 ```bash
-git clone <SEU-REPO>
+git clone <>
 cd plagio-api
