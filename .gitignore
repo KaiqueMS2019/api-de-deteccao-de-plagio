@@ -7,7 +7,5 @@ venv/
 *.log
 *.tmp
 
-data/*.json
-
 .DS_Store
 Thumbs.db
