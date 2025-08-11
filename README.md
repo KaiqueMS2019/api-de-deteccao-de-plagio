@@ -1,7 +1,7 @@
-# API de Detecção de Plágio 
+# API de Detecção de Plágio
 
-Este projeto é uma API em Python para detecção de plágio com NLP.  
-Ele compara textos enviados contra uma **base local** e contra **conteúdos do Wikipedia** usando **embeddings semânticos**.
+Este projeto é uma **API de detecção de plágio com NLP** desenvolvida em **Python**.  
+A API compara textos enviados contra uma **base local** e contra **conteúdos extraídos do Wikipedia**, utilizando **busca semântica** e **busca léxica**.
 
 ---
 
@@ -18,24 +18,38 @@ Ele compara textos enviados contra uma **base local** e contra **conteúdos do W
 
 ## **Funcionalidades**
 
-1. **Verificar Plágio** (`/verificar-plagio/`)
-   - Recebe arquivo (TXT, DOCX, PDF)
-   - Compara com base local e Wikipedia
+1. **Verificar Plágio** (`/compare/`)
+   - Recebe arquivo **(TXT, DOCX, PDF)** ou texto puro
+   - Compara com a base local e Wikipedia
    - Retorna percentual de similaridade e trechos suspeitos
 
-2. **Adicionar à Base Local** (`/adicionar-base/`)
-   - Permite adicionar arquivos novos à base de comparação
-   - Atualiza o arquivo `data/base.json` automaticamente
+2. **Adicionar à Base Local** (`/add-to-base/`)
+   - Adiciona arquivos/textos novos à base de comparação
+   - Atualiza `data/base.json` automaticamente
 
-3. **Base Persistente**
-   - Textos locais salvos em `data/base.json`
-   - API pode ser enriquecida continuamente sem reiniciar
+3. **Health Check** (`/health`)
+   - Verifica se a API está no ar
 
 ---
 
-## **Instalação e Execução**
+## **Instalação Local**
 
 ### **1. Clonar o repositório**
 ```bash
 git clone https://github.com/KaiqueMS2019/api-de-deteccao-de-plagio.git
-cd plagio-api
+cd api-de-deteccao-de-palgio
+
+---
+
+## **2. Criar ambiente virtual e instalar dependências**
+```bash
+python -m venv venv
+source venv/bin/activate   # Linux/macOS
+venv\Scripts\activate      # Windows
+
+pip install --upgrade pip
+pip install -r requirements.txt
+
+## **3. Rodar a API localmente**
+```bash
+uvicorn app.main:app --reload

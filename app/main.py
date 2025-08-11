@@ -1,4 +1,5 @@
-from fastapi import FastAPI, UploadFile, File
+from typing import Optional
+from fastapi import FastAPI, UploadFile, File, Form
 from app.utils import load_base, read_file
 from app.plagiarism import plagiarism_check
 import json
@@ -8,21 +9,31 @@ app = FastAPI(title="API Detecção de Plágio")
 base_local = load_base()
 
 
-@app.post("/verificar-plagio/")
-async def verificar_plagio(file: UploadFile = File(...)):
-    try:
-        texto = read_file(file)
-        percentual, suspeitos = plagiarism_check(texto, base_local)
+@app.get("/health")
+def health_check():
+    return {"status": "ok", "message": "API is running"}
 
-        return {
-            "percentual_plagio": f"{percentual:.2f}%",
-            "suspeitos": suspeitos
-        }
+
+@app.post("/compare/")
+async def verificar_plagio(file: Optional[UploadFile] = File(None),
+                           texto_manual: Optional[str] = Form(None)):
+    try:
+        if file:
+            texto = read_file(file)
+        elif texto_manual:
+            texto = texto_manual
+        else:
+            return {"erro": "Envie um arquivo ou escreva um texto."}
+
+        resultado = plagiarism_check(texto, base_local, threshold=0.7, top_k=5)
+
+        return resultado
+
     except Exception as e:
         return {"erro": str(e)}
 
 
-@app.post("/adicionar-base/")
+@app.post("/add-to-base/")
 async def adicionar_base(file: UploadFile = File(...)):
     try:
         texto = read_file(file)

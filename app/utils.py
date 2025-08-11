@@ -38,12 +38,6 @@ def read_file(file):
 
 
 def normalizar_texto(texto):
-    """
-    Normaliza texto para comparação semântica:
-    - Converte para minúsculas
-    - Remove pontuação
-    - Remove espaços extras
-    """
     texto = texto.lower()
     texto = re.sub(r'[^\w\s]', '', texto)
     return texto.strip()
