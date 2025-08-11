@@ -8,3 +8,4 @@ python-docx
 PyPDF2
 pdfplumber
 python-multipart
+langchain-community
