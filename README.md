@@ -37,7 +37,7 @@ A API compara textos enviados contra uma **base local** e contra **conteúdos ex
 ### **1. Clonar o repositório**
 ```bash
 git clone https://github.com/KaiqueMS2019/api-de-deteccao-de-plagio.git
-cd api-de-deteccao-de-palgio
+cd api-de-deteccao-de-plagio
 ```
 ---
 
@@ -64,6 +64,7 @@ docker build -t antiplagio:latest .
 ```bash
 docker run -p 8000:8000 antiplagio:latest
 ```
+---
 ## **Testes Automatizados**
 
 Rodar testes unitários localmente:
@@ -74,6 +75,7 @@ $env:PYTHONPATH="."; pytest --maxfail=1 --disable-warnings -q
 # Linux/macOS
 PYTHONPATH=. pytest --maxfail=1 --disable-warnings -q
 ```
+---
 ## **Uso da API**
 ### **1. Via Swagger**
 Acesse:
@@ -89,6 +91,24 @@ Na rota /compare/, clique no botão "Try it out" e escolha se irá mandar um tex
 Para adicionar mais arquivos na base de dados, na rota /add-to-base/, clique no botão "Try it out" e escolha um arquivo e clique em "Execute" como na imagema seguir:
 <img width="1778" height="512" alt="image" src="https://github.com/user-attachments/assets/b50020cc-8aae-4b6b-b12a-c5c006018182" />
 
+### **2. CURL**
+```bash
+curl -X POST "http://127.0.0.1:8000/compare/" \
+  -H "accept: application/json" \
+  -H "Content-Type: multipart/form-data" \
+  -F "file=@texto_teste.txt"
+```
+### **3. Via Postman**
+- Método: POST
+- URL: http://127.0.0.1:8000/compare/
+- Body → form-data → file (arquivo TXT, DOCX ou PDF)
 
+---
+## Fluxo de Funcionamento
 
-
+1. Recebe arquivo ou texto  
+2. Extrai o conteúdo  
+3. Normaliza e divide em chunks  
+4. Busca na base local (FAISS e TF-IDF)  
+5. Busca no Wikipedia  
+6. Retorna percentual e trechos suspeitos  
